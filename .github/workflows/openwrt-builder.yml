@@ -93,7 +93,7 @@ jobs:
     #     # $GITHUB_WORKSPACE/$DIY_P2_SH
     - name: Copy your .config into lede/.config
       run: |
-        cp configs/JDcloud_AX1800PRO.config lede/.config
+        cp configs/JDcloud_AX1800PRO.config openwrt/.config
 
     - name: Setup tmate session (SSH debug)
       if: ${{ github.event.inputs.ssh == 'true' || contains(github.event.head_commit.message, '[ssh]') }}
