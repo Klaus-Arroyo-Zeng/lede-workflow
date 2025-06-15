@@ -1,7 +1,13 @@
 name: OpenWrt Build with Precached dl
 
 on:
+  repository_dispatch:
   workflow_dispatch:
+    inputs:
+          ssh:
+            description: "Enable SSH debugging"
+            required: false
+            default: "true"
 
 jobs:
   download-dl:
@@ -40,7 +46,12 @@ jobs:
     - name: Generate .config
       run: |
         [ -e $CONFIG_FILE ] && mv configs/JDcloud_AX1800PRO.config .config
-        make defconfig
+    
+    - name: Setup tmate session (SSH debug)
+      if: ${{ github.event.inputs.ssh == 'true' || contains(github.event.head_commit.message, '[ssh]') }}
+      uses: mxschmitt/action-tmate@v3
+      with:
+        limit-access-to-actor: false  # 仅允许触发者访问 SSH 会话
 
     - name: Download source (dl)
       if: steps.dl-cache.outputs.cache-hit != 'true'
