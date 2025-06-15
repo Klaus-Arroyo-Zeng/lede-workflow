@@ -91,7 +91,7 @@ jobs:
     #     # chmod +x $DIY_P2_SH
     #     # cd openwrt
     #     # $GITHUB_WORKSPACE/$DIY_P2_SH
-    - name: Copy your .config into lede/.config
+    - name: Copy your .config into openwrt/.config
       run: |
         cp configs/JDcloud_AX1800PRO.config openwrt/.config
 
